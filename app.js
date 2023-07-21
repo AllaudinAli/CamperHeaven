@@ -17,7 +17,7 @@ const User = require('./models/user');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet')
 const MongoStore = require('connect-mongo');
-const dbUrl = 'mongodb://0.0.0.0:27017/the-camp';
+const dbUrl = process.env.DB_URL || 'mongodb://0.0.0.0:27017/the-camp';
 
 
 //Routes
@@ -47,11 +47,13 @@ app.use(methodOverride('_method'));
 //Mongo Sanitize for Security
 app.use(mongoSanitize())
 
+const secret = 'thisisasecret'
+
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
     crypto: {
-        secret: 'thisshouldbeabettersecret!'
+        secret,
     }
 });
 
@@ -61,7 +63,7 @@ store.on('error', function (e) {
 const sessionConfig = {
     store,
     name: 'sessionID',
-    secret: 'UnusualSecret',
+    secret,
     resave: false,
     saveUninitialized: true,
     cookie: {
