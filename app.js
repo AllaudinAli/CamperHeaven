@@ -47,7 +47,7 @@ app.use(methodOverride('_method'));
 //Mongo Sanitize for Security
 app.use(mongoSanitize())
 
-const secret = 'thisisasecret'
+const secret = process.env.SECRET;
 
 const store = MongoStore.create({
     mongoUrl: dbUrl,
