@@ -20,7 +20,7 @@ const MongoStore = require('connect-mongo');
 const dbUrl = process.env.DB_URL || 'mongodb://0.0.0.0:27017/the-camp';
 
 
-//Routess
+//Routes
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
 const userRouters = require('./routes/users');
